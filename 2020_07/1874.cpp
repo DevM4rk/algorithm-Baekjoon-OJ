@@ -5,7 +5,7 @@
 using namespace std;
 
   int stacki,i,n,top,x,resi,stack[100000];
-  char res[20000];
+  char res[200000];
   bool check;
   
 void push(){
