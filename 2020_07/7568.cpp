@@ -31,6 +31,7 @@ E	<46, 155>	5
 예제 출력 1 
 2 2 1 2 5
 */
+
 #include <iostream>
 
 using namespace std;
