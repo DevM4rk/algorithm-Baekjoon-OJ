@@ -46,7 +46,7 @@ int main() {
     else{
       map[name]++;
       if (map[name]==2) cnt ++;
-    }
+    } 
   }
 
 cout << cnt << endl;
