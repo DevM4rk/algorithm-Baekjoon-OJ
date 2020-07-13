@@ -30,6 +30,7 @@ n개의 정수로 이루어진 임의의 수열이 주어진다. 우리는 이 �
 예제 출력 3 
 -1
 */
+
 #include <iostream>
 #include <algorithm>
 
