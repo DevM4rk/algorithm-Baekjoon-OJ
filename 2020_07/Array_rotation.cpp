@@ -16,7 +16,7 @@ int main(){
   
   for(int i=0;i<n;i++){
     for(int j=0;j<n;j++)
-      cout << setw(2) << map[5-1-j][i] << " ";
+      cout << setw(2) << map[n-1-j][i] << " ";
     cout << "\n";
   }
   return 0;
