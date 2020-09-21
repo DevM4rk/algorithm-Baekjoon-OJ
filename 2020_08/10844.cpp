@@ -28,7 +28,7 @@ using namespace std;
 
 int main(){
     int N, sum=0;
-    int dp[100][10]={0,};
+    int dp[2][10]={0,};
 
     cin >> N;
 
@@ -36,13 +36,13 @@ int main(){
 
     for(int i=1; i<N; i++){
         for(int j=0;j<10;j++){
-            if (j==0) dp[i][0] = dp[i-1][1];
-            else if (j==9) dp[i][9] = dp[i-1][8];
-            else dp[i][j] = (dp[i-1][j-1] + dp[i-1][j+1]) % MOD_NUM;
+            if (j==0) dp[i%2][0] = dp[(i-1)%2][1];
+            else if (j==9) dp[i%2][9] = dp[(i-1)%2][8];
+            else dp[i%2][j] = (dp[(i-1)%2][j-1] + dp[(i-1)%2][j+1]) % MOD_NUM;
         }
     }
 
-    for(int i=0; i<10; i++) sum = (sum + dp[N-1][i]) % MOD_NUM;
+    for(int i=0; i<10; i++) sum = (sum + dp[(N-1)%2][i]) % MOD_NUM;
     cout << sum;
     return 0;
 }
