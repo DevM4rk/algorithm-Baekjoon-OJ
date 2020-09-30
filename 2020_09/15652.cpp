@@ -15,16 +15,19 @@ bool sortcheck(){
 }
 
 void dfs(int cnt){
-    if(cnt== M && sortcheck()){
-        for(int i=0; i<M; i++){
-            cout << arr[i] << " ";
+    if(cnt == M){
+        if(sortcheck()){
+            for(int i=0; i<M ; i++){
+                cout << arr[i] << " ";
+            }
+            cout << "\n";
         }
-        cout << "\n";
-        return;
+        return ;
     }
+
     for(int i=1; i<=N; i++){
-        arr[cnt] = i ;
-        dfs(cnt+1);
+            arr[cnt] = i;
+            dfs(cnt+1);
     }
 }
 
