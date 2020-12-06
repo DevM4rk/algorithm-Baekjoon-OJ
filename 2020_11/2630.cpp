@@ -19,8 +19,7 @@ void division(int xs, int ys, int xe, int ye){
         division((xs+xe)/2, ys, xe, (ys+ye)/2);
         division(xs, (ys+ye)/2, (xs+xe)/2, ye);
         division((xs+xe)/2, (ys+ye)/2, xe, ye);
-    }
-        
+    }   
 }
 
 int main(){
