@@ -6,14 +6,14 @@ using namespace std;
 int N;
 queue<int>q;
 
-int solve(){
-    if(q.size() == 1) cout << q.front() << endl;
-    else{
+void solve(){
+    while(q.size() > 1){
         q.pop();
         int temp = q.front();
         q.pop();
         q.push(temp);
     }
+    cout << q.front() << endl;
 }
 
 int main(){
