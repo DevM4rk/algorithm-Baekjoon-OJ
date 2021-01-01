@@ -8,7 +8,7 @@ priority_queue<int,vector<int>,greater<int>> pq_min;
 priority_queue<int> pq_max;
 
 void solve(){
-    if( pq_max.top() <= temp ){
+    if( pq_max.top() > temp ){
         pq_max.push(temp);
 
         if( (pq_max.size() + pq_min.size()) % 2 == 0 ){
@@ -30,7 +30,7 @@ void solve(){
 
 /*
 기준(max.top)보다 작거나 같으면 max 크면 min로 분류
- 
+
 2 4 6  (1,3,5,7)
 짝수일때 작게 분류 된 경우 max top , min push, max pop
 2 4 6 8 (1,3,5,7,9)
