@@ -8,11 +8,7 @@ priority_queue<int,vector<int>,greater<int>> pq_min;
 priority_queue<int> pq_max;
 
 void solve(){
-<<<<<<< HEAD:2021_01/1655.cpp
     if( pq_max.top() > temp ){ //입력값이 중간값보다 작을 경우
-=======
-    if( pq_max.top() > temp ){
->>>>>>> 0d2883ac4c0c91b5e8489beb1bbc448595292b47:2020_12/1655.cpp
         pq_max.push(temp);
 
         if( (pq_max.size() + pq_min.size()) % 2 == 0 ){
