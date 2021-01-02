@@ -8,7 +8,7 @@ priority_queue<int,vector<int>,greater<int>> pq_min;
 priority_queue<int> pq_max;
 
 void solve(){
-    if( pq_max.top() <= temp ){
+    if( pq_max.top() > temp ){ //입력값이 중간값보다 작을 경우
         pq_max.push(temp);
 
         if( (pq_max.size() + pq_min.size()) % 2 == 0 ){
@@ -16,7 +16,7 @@ void solve(){
             pq_max.pop();
         }
     } 
-    else{
+    else{   //입력값이 중간값보다 클 경우
         pq_min.push(temp);
 
         if( (pq_max.size() + pq_min.size()) % 2 == 1 ){
