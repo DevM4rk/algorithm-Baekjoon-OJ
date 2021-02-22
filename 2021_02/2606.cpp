@@ -13,19 +13,17 @@ typedef pair <ll, ll> pll;
 typedef vector<int> vi;
 typedef vector <ll> vl;
 
-int N, M, V=1, t1, t2, cnt=0;
-vi graph[101];
-bool visited[101];
+int N, M, V, t1, t2;
+vi graph[1001];     // 2Â÷¿ø º¤ÅÍ
+bool visited[1001];
 
 void dfs(int x){
     visited[x] = true;
+    cout << x << " ";
 
-    for(int i=0; i<graph[x].size(); i++){
-        if( visited[graph[x][i]] == false ){
+    for(int i=0; i<graph[x].size(); i++)
+        if( visited[graph[x][i]] == false ) 
             dfs(graph[x][i]);
-            cnt++;
-        }
-    }
 }
 
 void bfs(int x){
@@ -66,8 +64,7 @@ int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
 
-    cin >> N;
-    cin >> M;
+    cin >> N >> M >> V;
     
     while(M--){
         cin >> t1 >> t2;
@@ -82,11 +79,9 @@ int main(){
 
     dfs(V);
 
-    cout << cnt;
-
-    //std::fill(begin(visited), std::end(visited), false);
+    std::fill(begin(visited), std::end(visited), false);
     //memset(vistied, false, sizeof(visited));
-    //cout << endl;
+    cout << endl;
     
-    //bfs(V);
+    bfs(V);
 }
