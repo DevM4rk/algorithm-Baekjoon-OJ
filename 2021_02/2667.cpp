@@ -1,6 +1,7 @@
 #include <iostream>
 #include <queue>
 #include <algorithm>
+#include <string.h>
 
 #define all(v) v.begin(), v.end()
 
@@ -13,122 +14,66 @@ typedef pair <ll, ll> pll;
 typedef vector<int> vi;
 typedef vector <ll> vl;
 
-int N, V=1, t1, t2, cnt=0;
-vi graph[26];
-bool visited[26];
+#define MAX 25
 
-void dfs(int x){
-    visited[x] = true;
+int N;
+int arr[MAX][MAX];
+bool visited[MAX][MAX];
+int cnt;
+int dx[4] = { 1, -1, 0, 0 };
+int dy[4] = { 0, 0, 1, -1 };
 
-    for(int i=0; i<graph[x].size(); i++){
-        if( visited[graph[x][i]] == false ){
-            dfs(graph[x][i]);
-            cnt++;
-        }
-    }
+vector <int> vec;
+
+void DFS(int x, int y) {
+	cnt++;
+	visited[x][y] = true;
+
+	for (int i = 0; i < 4; i++) {
+		int nx = x + dx[i];
+		int ny = y + dy[i];
+		if (nx < 0 || nx >= N || ny < 0 || ny >= N) continue;
+		if (arr[nx][ny] == 1 && visited[nx][ny] == false){
+			DFS(nx, ny);
+		}
+	}
 }
 
-void bfs(int x){
+int main() {
+	cin >> N;
+	
+	for (int i = 0; i < N; i++) {
+		string temp;
+		cin >> temp;
+		for (int j = 0; j < N; j++)	arr[i][j] = temp[j] - '0';
+	}
 
-    queue<int> q;
-    
-    q.push(x);
-    visited[x] = true;
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			if (arr[i][j] == 1 && visited[i][j] == false) {
+				cnt = 0;
+				DFS(i, j);
+				vec.push_back(cnt);
+			}
+		}
+	}
 
-    while(!q.empty()){
-        x = q.front();
-        q.pop();
-        cout << x << " ";
+	sort(vec.begin(), vec.end());
+	cout << vec.size() << endl;
 
-        for( int i=0; i<graph[x].size(); i++){
-            int y = graph[x][i];
-            
-            if( visited[y] == false ){
-                visited[y] = true;
-                q.push(y);
-            }
-        }
+	for (int i = 0; i < vec.size(); i++) cout << vec[i] << endl;
 
-    }    
+	return 0;
 }
 
-void debug(){
-    
-    // graph에 값 제대로 들어가는지 디버깅
-    for(int i=1; i<=N; i++){
-        for(int j=0; j< graph[i].size(); j++)
-            cout << i << " i " << j << " j " << graph[i][j] << " ";
-        cout << endl;
-    }
-}
+/*
+입력값을 배열로 받고 
 
-int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr); cout.tie(nullptr);
+1일때와 방문안한것을 체크
+DFS로 넘김
 
-    cin >> N;
+DFS - 
+방문체크,
+상하좌우에 1이거나 방문을 안한경우 DFS로 넘김
 
-    char arr[N][N];
-    int arr_num[N][N];
-
-    for(int i=0; i<N; i++){
-        for(int j=0; j<N; j++){
-            cin >> arr[i][j];
-            arr_num[i][j] = cnt++;
-        }
-    }
-
-    for(int i=0; i<N; i++){
-        for(int j=0; j<N; j++){
-            cout << arr[i][j];
-        }
-        cout << endl;
-    }
-
-    for(int i=0; i<N; i++){
-        for(int j=0; j<N; j++){
-            cout << arr_num[i][j];
-        }
-        cout << endl;
-    }
-
-    for(int i=0; i<N; i++){
-        for(int j=0; j<N; j++){
-            if( arr[i][j] == '1'){
-                
-                if( arr[i-1][j] == '1' ){
-                    graph[arr_num[i-1][j]].push_back(arr_num[i][j]);
-                    graph[arr_num[i][j]].push_back(arr_num[i-1][j]);
-                }
-                if( arr[i][j-1] == '1' ){
-                    graph[arr_num[i][j-1]].push_back(arr_num[i][j]);
-                    graph[arr_num[i][j]].push_back(arr_num[i][j-1]);
-                }
-                if( arr[i+1][j] == '1' ){
-                    graph[arr_num[i+1][j]].push_back(arr_num[i][j]);
-                    graph[arr_num[i][j]].push_back(arr_num[i+1][j]);
-                }
-                if( arr[i][j+1] == '1' ){
-                    graph[arr_num[i][j+1]].push_back(arr_num[i][j]);
-                    graph[arr_num[i][j]].push_back(arr_num[i][j+1]);
-                }
-            }
-        }
-    }
-
-    //for(int i=1; i<=N; i++)
-    //    sort(all(graph[i]));
-
-
-    debug();
-
-    //dfs(V);
-
-    //cout << cnt;
-
-    //std::fill(begin(visited), std::end(visited), false);
-    //memset(vistied, false, sizeof(visited));
-    //cout << endl;
-    
-    //bfs(V);
-}
+*/
