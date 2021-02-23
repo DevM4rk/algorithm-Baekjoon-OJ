@@ -37,18 +37,13 @@ void BFS(int x, int y) {
         int qx = now.first;
         int qy = now.second;
 
-        if( qx == N-1 && qy == M-1 ) {
-            cout << check[qx][qy];
-            break;
-        }
-
         for(int i=0; i<4; i++){
             int nx = qx + dx[i];
 		    int ny = qy + dy[i];
-		    if (nx < 0 || nx >= N || ny < 0 || ny >= N) continue;
+		    if (nx < 0 || nx >= N || ny < 0 || ny >= M) continue;
 	    	if (arr[nx][ny] == 1 && visited[nx][ny] == false){
                 visited[nx][ny] = true;
-                check[nx][ny] = check[x][y] + 1;
+                check[nx][ny] = check[qx][qy] + 1;
 			    q.push(make_pair(nx,ny));
 		    }
         }
@@ -62,6 +57,9 @@ int main() {
         for (int j=0; j<M; j++)
             scanf("%1d", &arr[i][j]);
 
+    check[0][0] = 1;
+
 	BFS(0,0);
 
+    cout << check[N-1][M-1];
 }
