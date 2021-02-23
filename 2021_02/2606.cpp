@@ -14,7 +14,7 @@ typedef vector<int> vi;
 typedef vector <ll> vl;
 
 int N, M, V, t1, t2;
-vi graph[1001];     // 2차원 벡터
+vi graph[1001];     // 2???? ????
 bool visited[1001];
 
 void dfs(int x){
@@ -52,7 +52,7 @@ void bfs(int x){
 
 void debug(){
     
-    // graph에 값 제대로 들어가는지 디버깅
+    // graph?? ?? ????? ??????? ?????
     for(int i=1; i<=N; i++){
         for(int j=0; j< graph[i].size(); j++)
             cout << graph[i][j] << " ";
