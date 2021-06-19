@@ -13,6 +13,8 @@ typedef vector<int> vi;
 typedef vector <ll> vl;
 
 int N;
+int arr[11]={0,};
+int op[4]; // + - * /
 
 void solve(){
 
@@ -23,6 +25,12 @@ int main(){
     cin.tie(nullptr); cout.tie(nullptr);
 
     cin >> N;
+
+    for(int i=0; i<N; i++)
+        cin >> arr[i];
+    
+    for(int i=0; i<4; i++)
+        cin >> op[i];
     
     solve();
 }
