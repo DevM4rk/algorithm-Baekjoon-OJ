@@ -32,7 +32,6 @@ void dfs_stack(int x){
     visited[x] = true;
     cout << x << " ";
 
-//스택이 왜 쓰이는지 알아야 할듯 ㅠ
     while( !s.empty() ){
         int a = s.back();
         s.pop_back();
