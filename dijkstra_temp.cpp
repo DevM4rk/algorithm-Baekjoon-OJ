@@ -35,12 +35,12 @@ void solve(){
         if (d[idx] != dist) continue;   //다르다면, 저장할 때보다 더 짧은 경로를 찾은 것이므로
 
         for(int i=0; i<vp[idx].size(); i++){    //연결 되어있는 간선을 모두 돌음
-            int cost = vp[idx][i].first;
-            int next = vp[idx][i].second;
+            int ndist = vp[idx][i].first;
+            int nidx = vp[idx][i].second;
             
-            if(d[next] > dist + cost){      //현재 저장된 최단거리보다 dist+cost의 값이 더 작으면 갱신
-                d[next] = dist + cost;
-                pq.push({d[next], next});   //더 짧은 길을 찾기 위해 pq에 추가
+            if(d[nidx] > dist + ndist){      //현재 저장된 최단거리보다 dist+ndist의 값이 더 작으면 갱신
+                d[nidx] = dist + ndist;
+                pq.push({d[nidx], nidx});   //더 짧은 길을 찾기 위해 pq에 추가
             }
         }
     }
@@ -55,7 +55,7 @@ int main(){
 
     while(E--){
         cin >> u >> v >> w; //정점 간선 가중치
-        vp[u].push_back({w, v});
+        vp[u].push_back({w, v});    //다익스트라 재귀 돌릴 때 편의상 가중치를 first에 저장
     }
     fill(d, d+V+1, INF);
 
