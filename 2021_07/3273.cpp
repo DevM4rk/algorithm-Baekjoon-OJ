@@ -16,17 +16,39 @@ typedef vector<pii> vpii;
 typedef vector<pll> vpll;
 typedef unordered_map<int, int> mpii;
 
-int N;
+int n,x,ans=0;
+int a[100000];
 
 void solve(){
-
+    int s = 0;
+    int e = n-1;
+    
+    while(s < e){
+        if(a[s] + a[e] == x){
+            ans++;
+            s++;
+        }
+        else if(a[s] + a[e] > x){
+            e--;
+        }
+        else{
+            s++;
+        }
+    }
 }
 
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
 
-    cin >> N;
+    cin >> n;
+    for(int i=0; i<n; i++) cin >> a[i];
+    cin >> x;
+
+    sort(a, a+n);
     
     solve();
+
+    cout << ans;
 }
+//1 2 3 5 7 9 10 11 12   -> 13
