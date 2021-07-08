@@ -31,7 +31,7 @@ int find(int x){
 void merge(int x, int y){
     x = find(x);
     y = find(y);
-
+                        // x == y 라면 사이클이 형성된 것
     if(x != y) {
         parent[y] = x;
         friend_num[x] += friend_num[y];
