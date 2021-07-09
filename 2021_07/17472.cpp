@@ -3,6 +3,8 @@
 #define endl "\n"
 #define all(v) v.begin(), v.end()
 
+#define MAX 10
+
 using namespace std;
 
 typedef long long ll;
@@ -16,12 +18,11 @@ typedef vector<pii> vpii;
 typedef vector<pll> vpll;
 typedef unordered_map<int, int> mpii;
 
-int N,M,num,ans;
+int N,M,num=1,ans;
 int arr[10][10];
 bool visited[10][10];
-vpii v[6];
 vector<pair<int, pii>> dist;
-int p[6];
+int p[7];
 
 int ex[4] = {0,1,0,-1};
 int ey[4] = {1,0,-1,0};
@@ -38,12 +39,12 @@ void BFS(int a, int b){
     queue<pii> q;
     q.push({a,b});
     visited[a][b] = true;
-    v[num].push_back({a,b});
 
     while(!q.empty()){
         int x = q.front().first;
         int y = q.front().second;
         q.pop();
+        arr[x][y] = num;
 
         for(int i=0; i<4; i++){
             int dx = x + ex[i];
@@ -54,7 +55,6 @@ void BFS(int a, int b){
             if( arr[dx][dy] && !visited[dx][dy] ){
                 q.push({dx,dy});
                 visited[dx][dy] = true;
-                v[num].push_back({dx,dy});
             }
         }
     }
@@ -63,8 +63,8 @@ void BFS(int a, int b){
 }
 
 int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr); cout.tie(nullptr);
+    //ios_base::sync_with_stdio(false);
+    //cin.tie(nullptr); cout.tie(nullptr);
 
     cin >> N >> M;
 
@@ -77,46 +77,40 @@ int main(){
             if(arr[i][j] && !visited[i][j])
                 BFS(i,j);
 
-    
     //cout << num;
 
-    for(int i=0; i<num; i++){   // i번째섬에서
-        for(int k=i+1; k<num; k++){     //k번째섬으로
-            int d=10;
-          
-            for(int j=0; j<v[i].size(); j++){
-                int x1 = v[i][j].first;
-                int y1 = v[i][j].second;
-               // cout << x1 << ","<< y1 << " ";
+    for(int i=0; i<N; i++){   // i번째섬에서
+        for(int j=0; j<M; j++){     //j번째섬으로
+            if(arr[i][j] != 0){
+                for(int k=0; k<4; k++){
+                    int x = i;
+                    int y = j;
+                    int d = 0;
 
-                for(int l=0; l<v[k].size(); l++){
-                    int x2 = v[k][l].first;
-                    int y2 = v[k][l].second;
-                    //cout << x2 << ","<< y2 << endl;
-                    if( x1 == x2 ){
-                        int temp = abs(y1-y2)-1;  //가중치
-                        if (temp < 2) d=0;
-                        d = min(d,temp);
-                    }
+                    while(true){
+                        x += ex[k];
+                        y += ey[k];
+ 
+                        if( x < 0 || y < 0 || x >= N || y >= M || arr[i][j] == arr[x][y] ) break;
 
-                    if( y1 == y2 ){
-                        int temp = abs(x1-x2)-1;  //가중치
-                        if (temp < 2) d=0;
-                        d = min(d,temp);
+                        if(arr[x][y] != 0){
+                            //cout << d << " " << i << " " << j << " "<< x << " " << y <<endl;
+                            if(d > 1){
+                                //cout << d << " " << arr[i][j] << " " << arr[x][y] << endl;
+                                dist.push_back({d,{arr[i][j],arr[x][y]}});
+                            }
+                            break;
+                        }
+                        d++;
                     }
                 }
-            }
-        
-                cout << d << " " << i << " " << k << endl;
-            if( d!=10 && d!=0 ){
-                dist.push_back({d,{i,k}});
             }
         }
     }
 
     sort(all(dist));
 
-    for(int i=0; i<num; i++) p[i]= i;
+    for(int i=1; i<=num-1; i++) p[i]= i;
 
     for(int i=0; i<dist.size(); i++){
         int weight = dist[i].first;
@@ -131,16 +125,14 @@ int main(){
         p[a] = b;
 
         ans += weight;
+
     }
 
-    bool check = true;
-
-    for(int i=1; i<num; i++)
-        if(find(0) != find(i))
-            check = false;
-            
-    if(check) cout << ans;
-    else cout << -1;
+    for(int i=2; i<=num-1; i++)
+        if(find(1) != find(i))
+            ans = -1;
+    
+    cout << ans;
 }
 
 /*
