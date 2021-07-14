@@ -1,8 +1,4 @@
-#include <iostream>
-#include <algorithm>
-#include <vector>
-#include <map>
-#include <stack>
+#include <bits/stdc++.h>
 using namespace std;
 typedef pair<string, int> ii;
 
@@ -17,11 +13,9 @@ typedef vector<pii> vpii;
 typedef vector<pll> vpll;
 
 int main() {
-    stack<pii> s;
-    s.top().
-    v.push_back(1);
-    v.push_back(2);
+    vector<vector<int>> jobs;
+    jobs[0].push_back(2);
+    cout << jobs[0][0];
+        priority_queue<pair<int,int>> jobs_pq, time_pq;
 
-    v.pop_back();
-    cout << v.back();
 }
