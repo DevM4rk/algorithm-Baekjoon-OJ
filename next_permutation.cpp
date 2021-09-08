@@ -18,7 +18,7 @@ typedef vector<pll> vpll;
 typedef unordered_map<int, int> mpii;
 
 int main() {
-    vector<vector<int>> dice = {{0, 1, 5, 3, 9, 2}, {2, 1, 0, 4, 8, 7}, {6, 3, 4, 7, 6, 5}};
+    vector<vector<int>> dice;
     int answer = 1;
     for(;;answer++) {
         string s = to_string(answer);
@@ -33,8 +33,8 @@ int main() {
                     chk = false;
                   break;  
                 } 
-                cout << 
             }
+
             if(chk){
                 pass = true;
                 break;
@@ -47,4 +47,4 @@ int main() {
             break;
         }
     }
-}
+} // {{0, 1, 5, 3, 9, 2}, {2, 1, 0, 4, 8, 7}, {6, 3, 4, 7, 6, 5}}
