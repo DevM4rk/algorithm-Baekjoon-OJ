@@ -36,7 +36,7 @@ void melt(){
     for(int i=0; i<n; i++){
         for(int j=0; j<m; j++){
             if(ice[i][j] == 0) continue;
-            for(int dir=0; dir<4; i++){
+            for(int dir=0; dir<4; dir++){
                 int nx = i + dx[dir];
                 int ny = j + dy[dir];
                 if(nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
