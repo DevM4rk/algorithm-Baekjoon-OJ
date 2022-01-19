@@ -16,8 +16,25 @@ typedef vector<pii> vpii;
 typedef vector<pll> vpll;
 typedef unordered_map<int, int> mpii;
 
+int n;
+
+void top(int a, int b, int k, int c){
+    if(k==1){
+        cout << a << " " << b << "\n";
+        return;
+    }
+    
+    top(a, c, k-1, b);
+    cout << a << " " << b << "\n";
+    top(c, b, k-1, a);
+}
+
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
 
+    cin >> n;
+
+    cout << (1<<n) - 1 << "\n";
+    top(1, 3, n, 2);
 }
