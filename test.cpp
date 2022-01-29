@@ -16,8 +16,14 @@ typedef vector<pii> vpii;
 typedef vector<pll> vpll;
 typedef unordered_map<int, int> mpii;
 
+unordered_map<string, vector<pair<int,int>>> m;
+
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
 
+    m["sab"].push_back({2,3});
+    for(auto a : m) cout << a.first;
+    cout << m["sab"][0].first;
+    
 }
