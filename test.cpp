@@ -16,14 +16,23 @@ typedef vector<pii> vpii;
 typedef vector<pll> vpll;
 typedef unordered_map<int, int> mpii;
 
-unordered_map<string, vector<pair<int,int>>> m;
-
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
 
-    m["sab"].push_back({2,3});
-    for(auto a : m) cout << a.first;
-    cout << m["sab"][0].first;
-    
+    int a[4] = {1,2,3,4};
+    do{
+        for(int i=0; i<4; i++)
+            cout << a[i];
+        cout << "\n";
+    }while(next_permutation(a,a+4));
+
+    /*3은 6개  , 4는 6*4 =24개  5!= 120 , 6! = 720
+    123
+    132
+    213
+    231
+    312
+    321
+    */
 }
