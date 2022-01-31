@@ -1,0 +1,98 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+struct node{
+    int cost,x,y, bx,by; // before x,y
+    node(int cost_,int x_,int y_,int bx_,int by_) : cost(cost_), x(x_), y(y_), bx(bx_), by(by_) {}
+};
+
+struct cmp{
+    bool operator()(node &a, node &b){
+        if(a.cost == b.cost) return a.x < b.x;
+        return a.cost > b.cost;
+    }  
+};
+
+int dx[4] = {0,0,1,-1};
+int dy[4] = {1,-1,0,0};
+//0은 가로, 1은 세로
+int solution(vector<vector<int>> board) {
+    int answer = INT_MAX;
+    int n = board.size();
+    int co[25][25];
+    for(auto a : co) fill(a, a+n, INT_MAX);
+    
+    queue<node> pq;
+    /* priority_queue로 하게 되면 아래 테케를 통과하지 못함
+    4400 6,4와 4300 7,3 에서  7,4로 가는 경우에 7,3이 먼저 실행돼서 비용이 4400 7,4가 됨
+    그다음 6,4가 7,4로 갈때 4500이 되어서 비용이 커서 큐에 안들어감
+    그런데 8,4로 갈 때 코너가 있어서 600원이 추가 되는 반면, 6,4가 들어갔다면 직선이기 때문에 100원이 추가돼서 훨씬 쌈
+[[0, 1, 1, 1, 1, 1, 1, 1, 1],
+[0, 0, 0, 0, 0, 1, 1, 1, 1],
+[1, 1, 1, 1, 0, 1, 1, 1, 1],
+[0, 0, 0, 0, 0, 1, 1, 1, 1],
+[0, 1, 0, 1, 1, 1, 1, 1, 1],
+[0, 1, 0, 0, 0, 1, 1, 1, 1],
+[0, 1, 1, 1, 0, 1, 1, 1, 1],
+[0, 0, 0, 0, 0, 1, 1, 1, 1],
+[1, 1, 1, 1, 0, 0, 0, 0, 0]]
+    */
+    pq.push(node(0,0,0,0,-1));
+    pq.push(node(0,0,0,-1,0));
+    co[0][0] = 0;
+    
+    while(!pq.empty()){
+        auto cur = pq.front(); pq.pop();
+        cout << cur.cost << " " << cur.x << " " << cur.y << " " << cur.bx << " " << cur.by << endl;
+        
+        if(co[cur.x][cur.y] != cur.cost) continue;
+        
+        if(cur.x == n-1 && cur.y == n-1){
+            answer = min(answer, cur.cost);
+            continue;
+        }
+            
+        for(int i=0; i<4; i++){
+            int nx = cur.x + dx[i];
+            int ny = cur.y + dy[i];
+            if(nx < 0 || nx >= n || ny < 0 || ny >= n) continue;
+            if(board[nx][ny] == 1) continue;    //벽이면 패스
+            
+            int temp=0;
+            if(cur.x == cur.bx){                //계속 가로 였는데
+                if(cur.x == nx) temp=100;       //다음 길도 가로
+                else temp=600;                  //다음 길이 세로
+            }
+            else if(cur.y == cur.by){           //계속 세로 였는데
+                if(cur.y == ny) temp=100;       //다음 길도 세로
+                else temp=600;                  //다음 길이 가로
+            }
+            
+            if(co[nx][ny] >= cur.cost + temp){
+                co[nx][ny] = cur.cost + temp;
+                pq.push(node(cur.cost + temp, nx, ny, cur.x, cur.y));
+                
+                cout << cur.cost + temp << " " << nx << " " << ny << " " << cur.x << " " << cur.y << " " << cur.bx << " " << cur.by << endl;
+            }            
+        }
+    }
+    return answer;
+}
+/*
+10:14 ~ 11:14
+bfs pri_q 사용해야할듯, 비용, x,y좌표, 직선코너체크
+그동안 직선으로 이어온 것을 표시해야하는데 어떻게하지,,
+가로냐 세로냐로 판단!!
+코너는 그냥 600원으로 계산
+
+여전히 틀리는 테케 25번
+[[0, 0, 0, 0, 0, 0, 0, 0],
+ [1, 0, 1, 1, 1, 1, 1, 0],
+ [1, 0, 0, 1, 0, 0, 0, 0],
+ [1, 1, 0, 0, 0, 1, 1, 1],
+ [1, 1, 1, 1, 0, 0, 0, 0],
+ [1, 1, 1, 1, 1, 1, 1, 0],
+ [1, 1, 1, 1, 1, 1, 1, 0],
+ [1, 1, 1, 1, 1, 1, 1, 0]]
+*/
