@@ -16,23 +16,45 @@ typedef vector<pii> vpii;
 typedef vector<pll> vpll;
 typedef unordered_map<int, int> mpii;
 
+vector<vector<int>> v(101);
+vector<int> vv[101];
+int n,m,r;
+
+void debug(){
+    for(int i=0; i<n; i++){
+        for(int j=0; j<m; j++){
+            cout << vv[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+
+void rev(){
+    vector<vi> tv;
+    tv = v;
+    for(int i=0; i<n; i++){
+        for(int j=0; j<m; j++){
+            cout << tv[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+}
+
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
 
-    int a[4] = {1,2,3,4};
-    do{
-        for(int i=0; i<4; i++)
-            cout << a[i];
-        cout << "\n";
-    }while(next_permutation(a,a+4));
+    cin >> n >> m >> r;
 
-    /*3은 6개  , 4는 6*4 =24개  5!= 120 , 6! = 720
-    123
-    132
-    213
-    231
-    312
-    321
-    */
+    for(int i=0; i<n; i++){
+        for(int j=0; j<m; j++){
+            int t; cin >> t;
+            vv[i].push_back(t);
+        }
+    }
+
+//    debug();
+
+    rev();
 }
