@@ -19,16 +19,23 @@ typedef unordered_map<int, int> mpii;
 int n; 
 ll MAX = 9876543210;
 vl v;
+unordered_map<string,int> m;
 
 void dfs(string x, int cnt){
-    cout << x << endl;
+    //cout << x << " " << cnt << endl;
     if(cnt==10){
-        v.push_back(stoll(x));
+        //cout << x << endl;
+        if(x!=""){
+            v.push_back(stoll(x));
+            m[x]++;
+        }
         return;
     }
 
     //넣는 경우, 안 넣는 경우
     for(int i=9-cnt; i>=0; i--){
+        if(m.count(x+to_string(i))) continue;
+
         if(x.empty() || x.back()-'0' > i){
             dfs(x+to_string(i), cnt+1);
             dfs(x, cnt+1);
@@ -49,7 +56,9 @@ int main(){
     dfs("",0);
     sort(all(v));
 
-    cout << v[n];
+    //for(auto a : v) cout << a << " ";
+    if(n >= v.size()) cout << -1;
+    else cout << v[n];
 }
 // 9,876,543,210  longlong
 /*

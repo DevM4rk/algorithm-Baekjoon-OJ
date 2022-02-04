@@ -38,7 +38,6 @@ int main(){
         cin >> w;
         vi sum = time;
 
-        //위상정렬
         queue<int> q;
         for(int i=1; i<=n; i++)
             if(indeg[i]==0) q.push(i);
