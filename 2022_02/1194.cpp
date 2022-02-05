@@ -18,60 +18,62 @@ typedef unordered_map<int, int> mpii;
 
 int n,m,sx,sy,ans;
 string board[51];
+int visit[1<<6][51][51]; // key가 6개,  2^6가지의 경우의 수
 
 int dx[4] = {0,0,1,-1};
 int dy[4] = {1,-1,0,0};
 
 struct node{
     int x,y,cnt,k;
-    vector<bool> key;
-    vector<vector<bool>> v;
-    node(int x_, int y_, int cnt_, vector<bool> &key_, vector<vector<bool>> &v_, int k_){
+    node(int x_, int y_, int cnt_, int k_){
         x = x_;
         y = y_;
         cnt = cnt_;
-        key = key_;
-        v = v_;
         k = k_;
-
-        if(k!=9){
-            key[k] = true;
-            for(int i=0; i<n; i++)
-                for(int j=0; j<m; j++)
-                    v[i][j] = false;
-        }
-        v[x][y] = true;
     }
 };
 
-void bfs(node nod){
-    nod.v[sx][sy]=true;
+void bfs(){
+    visit[0][sx][sy]=true;
     queue<node> q;
-    q.push(nod);
+    q.push(node(sx,sy,0,0));
 
     while(!q.empty()){
         auto cur = q.front(); q.pop();
 
         //cout << cur.x << " " << cur.y << " " << cur.cnt << " " << cur.k << endl;
 
+        if(board[cur.x][cur.y]=='1'){
+            ans = cur.cnt;
+            return;
+        }
+
         for(int i=0; i<4; i++){
             int nx = cur.x + dx[i];
             int ny = cur.y + dy[i];
             if(nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
-            if(cur.v[nx][ny] || board[nx][ny]=='#') continue;
-            if(strchr("ABCDEF",board[nx][ny])) if(!cur.key[board[nx][ny]-'A']) continue; //문인데 키가 없다면 패스
-            if(board[nx][ny]=='1'){
-                ans = cur.cnt+1;
-                return;
+            if(board[nx][ny]=='#') continue;
+                    
+            if(strchr("ABCDEF",board[nx][ny])){     // 문
+                int hasKey = cur.k & (1 << board[nx][ny]-'A'); // 해당 키를 갖고 있는지를 알아야 하기 때문에 and 연산자, 1개에 대한 정보
+                if(hasKey && !visit[cur.k][nx][ny]){
+                    visit[cur.k][nx][ny] = true;
+                    q.push(node(nx, ny, cur.cnt+1, cur.k));  
+                }
             }
-            
-            int k=9;
-            if(strchr("abcdef",board[nx][ny])){
-                if(cur.key[board[nx][ny]-'a']) continue;    //이미 방문한 곳이라면
-                else k = board[nx][ny]-'a';
+            else if(strchr("abcdef",board[nx][ny])){     // 열쇠
+                int newKey = cur.k | (1 << board[nx][ny]-'a'); // 열쇠를 모두 챙겨야 하기 때문에 or 연산자, 여러개에 대한 정보
+                if(!visit[newKey][nx][ny]){
+                    visit[newKey][nx][ny] = true;
+                    q.push(node(nx, ny, cur.cnt+1, newKey));
+                }
             }
-
-            q.push(node(nx, ny, cur.cnt+1, cur.key, cur.v, k));
+            else{
+                if(!visit[cur.k][nx][ny]){
+                    visit[cur.k][nx][ny] = true;
+                    q.push(node(nx, ny, cur.cnt+1, cur.k));
+                }
+            }
         }
     }
 }
@@ -92,11 +94,17 @@ int main(){
         }
     }
 
-    vector<vector<bool>> visit(n, vector<bool> (m, 0));
-    vector<bool> k(6,false);
-
-    bfs(node(sx,sy,0,k,visit,9));
+    bfs();
 
     if(ans==0) ans=-1;
     cout << ans;
 }
+/*
+64  1
+32  1
+16  1
+8   1
+4   1
+2   1
+1   1
+*/

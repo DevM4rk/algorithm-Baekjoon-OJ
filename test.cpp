@@ -16,45 +16,18 @@ typedef vector<pii> vpii;
 typedef vector<pll> vpll;
 typedef unordered_map<int, int> mpii;
 
-vector<vector<int>> v(101);
-vector<int> vv[101];
-int n,m,r;
-
-void debug(){
-    for(int i=0; i<n; i++){
-        for(int j=0; j<m; j++){
-            cout << vv[i][j] << " ";
-        }
-        cout << endl;
-    }
-}
-
-void rev(){
-    vector<vi> tv;
-    tv = v;
-    for(int i=0; i<n; i++){
-        for(int j=0; j<m; j++){
-            cout << tv[i][j] << " ";
-        }
-        cout << endl;
-    }
-
-}
-
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
 
-    cin >> n >> m >> r;
+    int n = 1<<6;
+    int c = 'a'-'a';
+    int key = 1<<c;
+    cout << n << " " << c << " " << key;
+    int t = 1<<'b'-'a';
+    key = key | t;
+    cout << endl << t << " " <<  key << endl;
 
-    for(int i=0; i<n; i++){
-        for(int j=0; j<m; j++){
-            int t; cin >> t;
-            vv[i].push_back(t);
-        }
-    }
-
-//    debug();
-
-    rev();
+    int ans = key & (1<<3);
+    cout << ans;
 }
