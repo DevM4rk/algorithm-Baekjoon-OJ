@@ -20,14 +20,4 @@ int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
 
-    int n = 1<<6;
-    int c = 'a'-'a';
-    int key = 1<<c;
-    cout << n << " " << c << " " << key;
-    int t = 1<<'b'-'a';
-    key = key | t;
-    cout << endl << t << " " <<  key << endl;
-
-    int ans = key & (1<<3);
-    cout << ans;
 }
