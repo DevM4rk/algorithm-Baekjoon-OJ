@@ -48,7 +48,7 @@ int main(){
             ans = min(ans, d[n][i]);
         }
     }
-
+ 
     cout << ans;
 }
 /*
