@@ -16,7 +16,8 @@ typedef vector<pll> vpll;
 
 struct node{
     int x1,y1,x2,y2,cnt;
-    node(int x1_, int y1_, int x2_, int y2_, int cnt_) : x1(x1_), y1(y1_), x2(x2_), y2(y2_), cnt(cnt_) {}
+    string dir;
+    node(int x1_, int y1_, int x2_, int y2_, int cnt_, string dir_) : x1(x1_), y1(y1_), x2(x2_), y2(y2_), cnt(cnt_), dir(dir_) {}
 };
 
 int n,m;
@@ -24,8 +25,8 @@ char arr[10][10];
 queue<node> q;
 map<pair<pii,pii>, int> vis;
 
-const int dx[4] = {0,0,1,-1};
-const int dy[4] = {1,-1,0,0};
+const int dx[4] = {0,0,1,-1};   //R  L  D  U
+const int dy[4] = {1,-1,0,0};   //우 좌 하 상 
 
 void move(int &x, int &y, int &cnt, int i){
     while(arr[x][y] != 'O' && arr[x+dx[i]][y+dy[i]] != '#'){
@@ -50,13 +51,18 @@ void bfs(){
             int by = cur.y2;
             int cnt = cur.cnt+1;
             int rc=0, bc=0;
+            string dir = cur.dir;
+            if(i==0) dir += "R";
+            else if(i==1) dir += "L";
+            else if(i==2) dir += "D";
+            else if(i==3) dir += "U";
 
             move(rx,ry,rc,i);
             move(bx,by,bc,i);
 
             if(arr[bx][by] == 'O') continue;
             if(arr[rx][ry] == 'O'){
-                cout << 1;
+                cout << cnt << endl << dir;
                 return;
             }
 
@@ -67,10 +73,10 @@ void bfs(){
 
             if(vis.count({{rx,ry},{bx,by}})) continue;
             vis[{{rx,ry},{bx,by}}]++;
-            q.push(node(rx,ry,bx,by,cnt));
+            q.push(node(rx,ry,bx,by,cnt,dir));
         }
     }
-    cout << 0;
+    cout << -1;
 }
 
 int main(){
@@ -91,7 +97,7 @@ int main(){
     }
 
     vis[{{rx,ry},{bx,by}}]++;
-    q.push(node(rx,ry,bx,by,0));
+    q.push(node(rx,ry,bx,by,0,""));
 
     bfs();
 }

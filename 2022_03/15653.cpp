@@ -41,8 +41,6 @@ void bfs(){
 
         //cout << cur.x1 << " " << cur.y1 << " " << cur.x2 << " " << cur.y2 << " " << cur.cnt << endl;
 
-        if(cur.cnt >= 10) break;    // 예제 출력 7번 같은 경우, 둘이 동시에 빠지게 되면 큐가 비어서 출력후 return을 하게 되면 0이 출력이 되지 않음
-
         for(int i=0; i<4; ++i){
             int rx = cur.x1;
             int ry = cur.y1;
@@ -56,7 +54,7 @@ void bfs(){
 
             if(arr[bx][by] == 'O') continue;
             if(arr[rx][ry] == 'O'){
-                cout << 1;
+                cout << cnt;
                 return;
             }
 
@@ -70,7 +68,7 @@ void bfs(){
             q.push(node(rx,ry,bx,by,cnt));
         }
     }
-    cout << 0;
+    cout << -1;
 }
 
 int main(){

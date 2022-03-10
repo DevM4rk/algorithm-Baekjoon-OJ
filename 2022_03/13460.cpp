@@ -56,7 +56,7 @@ void bfs(){
 
             if(arr[bx][by] == 'O') continue;
             if(arr[rx][ry] == 'O'){
-                cout << 1;
+                cout << cnt;
                 return;
             }
 
@@ -70,7 +70,7 @@ void bfs(){
             q.push(node(rx,ry,bx,by,cnt));
         }
     }
-    cout << 0;
+    cout << -1;
 }
 
 int main(){
