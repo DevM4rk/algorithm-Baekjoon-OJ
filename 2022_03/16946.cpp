@@ -15,15 +15,14 @@ typedef vector <ll> vl;
 
 int N, M;
 int arr[MAX][MAX];
-int zeroCnt[MAX][MAX];
 bool vis[MAX][MAX];
 int dx[4] = { 0, 0, -1, 1 };
 int dy[4] = { -1, 1, 0 ,0 };
 
 void BFS(int a, int b) {
-	queue<pii> q, save;
+	set<pii> save;
+	queue<pii> q;
 	q.push({a,b});
-	save.push({a,b});
 	vis[a][b] = true;
 	int cnt=1;
 
@@ -38,19 +37,21 @@ void BFS(int a, int b) {
 			int nx = x + dx[i];
 			int ny = y + dy[i];
 			if (nx < 0 || nx >= N || ny < 0 || ny >= M) continue;
-			if(arr[nx][ny] || vis[nx][ny]) continue;
+			if(arr[nx][ny]){
+				save.insert({nx,ny});
+				continue;
+			}
+			if(vis[nx][ny]) continue;
 
 			vis[nx][ny] = true;
 			cnt++;
 			q.push({nx,ny});
-			save.push({nx,ny});
 		}
 	}
 
-	while(!save.empty()){
-		auto cur = save.front(); save.pop();
-		zeroCnt[cur.first][cur.second] = cnt;
-	}
+	for(auto a : save)
+		arr[a.first][a.second] += cnt;
+	
 }
 
 int main() {
@@ -72,25 +73,8 @@ int main() {
 		}
 	}
 
-	cout << "\n";
-	
 	for(int i=0; i<N; i++){
 		for(int j=0; j<M; j++){
-			cout << zeroCnt[i][j]%10;
-		}
-		cout << "\n";
-	}
-
-	cout << "\n";
-
-	for(int i=0; i<N; i++){
-		for(int j=0; j<M; j++){
-			for(int k=0; k<4; k++){
-				int nx = i + dx[k];
-				int ny = j + dy[k];
-				if (nx < 0 || nx >= N || ny < 0 || ny >= M) continue;
-				arr[i][j] += zeroCnt[nx][ny];
-			}
 			cout << arr[i][j]%10;
 		}
 		cout << "\n";
