@@ -18,4 +18,14 @@ int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
 
+    set<int> s = {2,5};
+
+    int m; cin >> m;
+    while(m--){
+        int a,b,c; cin >> a >> b >> c;
+        s.insert(a);
+        s.insert(b);
+        s.insert(c);
+
+    }
 }
