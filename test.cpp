@@ -41,6 +41,8 @@ int main(){
                 }
             }
             v[0].push_back({k,s});
+
+            
         }
         else{ // F
             int k; cin >> k;
