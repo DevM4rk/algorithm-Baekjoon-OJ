@@ -18,16 +18,14 @@ int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
 
-    int n,t; cin >> n >> t;
+    set<int> s = {2,5};
 
-    vi limit(n);
-    for(int i=0; i<n-1; ++i){
-        int size; cin >> size;
-        limit[i] = size;
-    }
-    limit[n-1] = INT_MAX; // 2e9
-    
-    vpii v[n];
+    int m; cin >> m;
+    while(m--){
+        int a,b,c; cin >> a >> b >> c;
+        s.insert(a);
+        s.insert(b);
+        s.insert(c);
 
     while(t--){
         char c; cin >> c;
@@ -50,12 +48,3 @@ int main(){
         }
     }
 }
-/*
-먼저 설계부터
-insert 연산 시
-레벨 1의 같은 키 있는지 확인 후 기존에 있던거 삭제, 새로운 메모리 할당
-위 연산ㅇ ㅣ끝나고 난 후
-메모리 제한을 넘기게 될 경우, avalanche 연산이 이루어 져야함
-
-
-*/
