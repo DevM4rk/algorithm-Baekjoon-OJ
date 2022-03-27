@@ -20,7 +20,32 @@ int main(){
 
     int n,x; cin >> n >> x;
     vi v(n);
-    for(int i=0; i<n; i++){
+    for(int i=0; i<n; i++)
         cin >> v[i];
+    
+    int sum=0;
+    for(int i=0; i<x; i++){
+        sum += v[i];
     }
+    int st=0, end=x-1, top=0, cnt=0;
+    while(end<n){
+        if(top < sum){
+            top = sum;
+            cnt=1;
+        }
+        else if( top == sum){
+            cnt++;
+        }
+
+        sum -= v[st];
+
+        st++;
+        end++;
+
+        sum += v[end];
+    }
+
+    if(top==0) cout << "SAD";
+    else cout << top << endl << cnt;
+    
 }
