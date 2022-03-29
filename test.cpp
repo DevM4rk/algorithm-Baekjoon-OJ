@@ -18,5 +18,14 @@ int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
 
-    cout << (1<<5);
+    int a = 10;
+    int *ptr = &a;
+    int &ref = a;
+
+    *ptr = 20;
+    cout << *ptr << ref;
+    
+    ref = 30;
+    cout << *ptr << ref;
+    
 }
