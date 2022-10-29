@@ -14,8 +14,17 @@ typedef vector <ll> vl;
 typedef vector<pii> vpii;
 typedef vector<pll> vpll;
 
+void func(int arr[],vi &v){
+    arr[0]=1;
+    v[0]=1;
+}
+
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
 
+    int arr[10];
+    vector<int> v(10);
+    func(arr,v);
+    cout << arr[0] << v[0];
 }
