@@ -11,16 +11,3 @@
 [![Run on Repl.it](https://repl.it/badge/github/duqrldudgns/algorithm-Baekjoon-OJ)](https://repl.it/github/duqrldudgns/algorithm-Baekjoon-OJ)
 
 :bread: [백준 사이트](https://acmicpc.net)
-
-# 코드 작성 순서
-
-> 제목 : 문제번호.cpp .c
->
-> 문제
->
-> 코드
->
-> 문제난이도 및 풀이법
->
-> 업데이트 내용을 문제종류로 기입 (Stack or Brute Force 등)
- 
