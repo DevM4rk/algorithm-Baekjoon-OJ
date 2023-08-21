@@ -54,33 +54,35 @@ int main(){
                 downReward = reward;
             }
             else if(randNum == 2){
-                upReward = reward * 1.1;
-                downReward = reward * 7.6;
+                upReward = floor(reward * 1.1 + 0.5);
+                downReward = floor(reward * 7.6 + 0.5);
             }
             else if(randNum == 8){
-                upReward = reward * 7.6;
-                downReward = reward * 1.1;
+                upReward = floor(reward * 7.6 + 0.5);
+                downReward = floor(reward * 1.1 + 0.5);
             }
             else if(randNum == 3){
-                upReward = reward * 1.25;
-                downReward = reward * 4;
+                upReward = floor(reward * 1.25 + 0.5);
+                downReward = floor(reward * 4 + 0.5);
             }
             else if(randNum == 7){
-                upReward = reward * 4;
-                downReward = reward * 1.25;
+                upReward = floor(reward * 4 + 0.5);
+                downReward = floor(reward * 1.25 + 0.5);
             }
             else if(randNum == 4){
-                upReward = reward * 1.5;
-                downReward = reward * 2.5;
+                upReward = floor(reward * 1.5 + 0.5);
+                downReward = floor(reward * 2.5 + 0.5);
             }
             else if(randNum == 6){
-                upReward = reward * 2.5;
-                downReward = reward * 1.5;
+                upReward = floor(reward * 2.5 + 0.5);
+                downReward = floor(reward * 1.5 + 0.5);
             }
             else if(randNum == 5){
-                upReward = reward * 2;
-                downReward = reward * 2;
+                upReward = floor(reward * 2 + 0.5);
+                downReward = floor(reward * 2 + 0.5);
             }
+            
+            re:
 
             string showNum = "1 2 3 4 5 6 7 8 9";
             string showPattern="";
@@ -125,7 +127,7 @@ int main(){
                 system("cls");
                 break;
             }
-            else {
+            else if(input == 4){
                 //다시 제대로 입력
 
                 //확률 체크
@@ -134,6 +136,10 @@ int main(){
                 }
                 cout << endl;
                 break;
+            }
+            else if(input == 5){
+                cout << nextNum << endl;
+                goto re;
             }
 
             randNum = nextNum;
