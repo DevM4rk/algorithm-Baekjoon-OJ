@@ -1,42 +1,153 @@
-#include <bits/stdc++.h>
-
+#include<iostream>
+#include<algorithm>
+#include<vector>
+ 
+#define endl "\n"
+#define MAX 11
 using namespace std;
-
-int n,m,k;
-vector<vector<int>> v(11, vector<int> (11));
-vector<vector<int>> food(11, vector<int> (11, 5));
-vector<tuple<int,int,int>> tree;
-int dx[] = {-1,-1,-1,0,0,1,1,1};
-int dy[] = {-1,0,1,-1,1,-1,0,1};
-
-int main(){
-    cin >> n >> m >> k;
-
-    for(int i=1; i<=n; i++){
-        for(int j=1; j<=n; j++){
-            cin >> v[i][j];
+ 
+int N, M, K;
+int Energy[MAX][MAX];
+int Insert_Energy[MAX][MAX];
+ 
+vector<int> MAP[MAX][MAX];
+ 
+int dx[] = { -1, -1, -1, 0, 0, 1, 1, 1 };
+int dy[] = { -1, 0, 1, -1, 1, -1, 0, 1 };
+ 
+void Input()
+{
+    cin >> N >> M >> K;
+    for (int i = 1; i <= N; i++)
+    {
+        for (int j = 1; j <= N; j++)
+        {
+            cin >> Insert_Energy[i][j];
+            Energy[i][j] = 5;
         }
     }
-
-    for(int i=0; i<m; i++){
-        int x,y,z; cin >> x >> y >> z;
-        tree.push_back({z,x,y});
+    
+    for (int i = 0; i < M; i++)
+    {
+        int a, b, c;
+        cin >> a >> b >> c;
+        MAP[a][b].push_back(c);
     }
-
-    sort(tree.begin(), tree.end());
-
-    while(k--){
-        for(int i=0; i<)
-    }
-
 }
-/*
-나무 정보를 담은 배열 vector tuple tree 나이가 맨앞에오도록 후 정렬
-
-k동안 반복
-1. tree 돌면서 양분 나눔
-만약 부족하면 그 이후로 있는 나무들 양분으로 추가
-2. 5의배수일때 번식
-후 정렬
-3. 양분 추가
-*/
+ 
+void SpringAndSummer()
+{
+    for (int i = 1; i <= N; i++)
+    {
+        for (int j = 1; j <= N; j++)
+        {
+            if (MAP[i][j].size() == 0) continue;
+            
+            int Die_Tree_Energy = 0;
+            vector<int> Temp;
+ 
+            sort(MAP[i][j].begin(), MAP[i][j].end());
+            for (int k = 0; k < MAP[i][j].size(); k++)
+            {
+                int Age = MAP[i][j][k];
+ 
+                if (Energy[i][j] >= Age)
+                {
+                    Energy[i][j] = Energy[i][j] - Age;
+                    Temp.push_back(Age + 1);
+                }
+                else
+                {
+                    Die_Tree_Energy = Die_Tree_Energy + (Age / 2);
+                }
+            }
+ 
+            MAP[i][j].clear();
+            for (int k = 0; k < Temp.size(); k++)
+            {
+                MAP[i][j].push_back(Temp[k]);
+            }
+            Energy[i][j] = Energy[i][j] + Die_Tree_Energy;
+        }
+    }    
+}
+ 
+void Fall()
+{
+    for (int i = 1; i <= N; i++)
+    {
+        for (int j = 1; j <= N; j++)
+        {
+            if (MAP[i][j].size() == 0) continue;
+ 
+            for (int k = 0; k < MAP[i][j].size(); k++)
+            {
+                int Age = MAP[i][j][k];
+ 
+                if (Age % 5 == 0)
+                {
+                    for (int a = 0; a < 8; a++)
+                    {
+                        int nx = i + dx[a];
+                        int ny = j + dy[a];
+ 
+                        if (nx >= 1 && ny >= 1 && nx <= N && ny <= N)
+                        {
+                            MAP[nx][ny].push_back(1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+ 
+void Winter()
+{
+    for (int i = 1; i <= N; i++)
+    {
+        for (int j = 1; j <= N; j++)
+        {
+            Energy[i][j] = Energy[i][j] + Insert_Energy[i][j];
+        }
+    }
+}
+ 
+void Solution()
+{
+    for (int i = 0; i < K; i++)
+    {
+        SpringAndSummer();
+        Fall();
+        Winter();
+    }
+ 
+    int Answer = 0;
+    for (int i = 1; i <= N; i++)
+    {
+        for (int j = 1; j <= N; j++)
+        {
+            Answer = Answer + MAP[i][j].size();
+        }
+    }
+ 
+    cout << Answer << endl;
+}
+ 
+void Solve()
+{
+    Input();
+    Solution();
+}
+ 
+int main(void)
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+ 
+    //freopen("Input.txt", "r", stdin);
+    Solve();
+ 
+    return 0;
+}
