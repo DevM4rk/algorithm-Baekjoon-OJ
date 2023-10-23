@@ -12,13 +12,13 @@ int dy[] = {0,-1,1,0};
 
 void dfs(int a, int b){
     
-    for(int i=0; i<n; i++){
-        for(int j=0; j<n; j++){
-            cout << board[i][j] << " ";
-        }
-        cout << endl;
-    }
-    cout << srk_size.first << " " << ans << endl;
+    // for(int i=0; i<n; i++){
+    //     for(int j=0; j<n; j++){
+    //         cout << board[i][j] << " ";
+    //     }
+    //     cout << endl;
+    // }
+    // cout << srk_size.first << " " << ans << endl;
 
     queue<tuple<int,int,int>> q;
     q.push({a,b,0});
