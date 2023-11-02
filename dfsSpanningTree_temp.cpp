@@ -82,5 +82,4 @@ int main(){
 
         cout << n - cnt << endl;
     }
-    
 }
