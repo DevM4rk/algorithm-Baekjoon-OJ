@@ -15,13 +15,12 @@ typedef vector<pii> vpii;
 typedef vector<pll> vpll;
 
 int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr); cout.tie(nullptr);
+    // ios_base::sync_with_stdio(false);
+    // cin.tie(nullptr); cout.tie(nullptr);
 
-    int ans=0;
-    for(int i=0; i<4; i++){
-
-        ans += 1 << i;
+    for(int i=0; i<3; i++){
+    string s;
+    getline(cin, s);
+    cout << s;
     }
-    cout << ans;
 }
